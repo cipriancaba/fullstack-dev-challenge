@@ -6,10 +6,12 @@ const api = require('./server/api')
 
 const schema = buildSchema(`
     type Query {
-        calculateSavings(initialSavings: Float,
-        monthlySavings: Float,
-        yearlyInterest: Float,
-        interestRecurrency: InterestRecurrency): [Calculations]
+        calculateSavings(initialSavings: Float!,
+        monthlySavings: Float!,
+        yearlyInterest: Float!,
+        interestRecurrency: InterestRecurrency!
+        months: Int!
+        ): [Calculations]
     },
     type Calculations {
         month: Int
