@@ -3,12 +3,19 @@ import gql from 'graphql-tag'
 
 export const calculateSavings = variables => {
   const query = gql`
-    {
+    query calculateSavings(
+      $initialSavings: Float!
+      $monthlySavings: Float!
+      $yearlyInterest: Float!
+      $interestRecurrency: InterestRecurrency!
+      $months: Int!
+    ) {
       calculations: calculateSavings(
-        initialSavings: 0
-        monthlySavings: 0
-        yearlyInterest: 0
-        interestRecurrency: Monthly
+        initialSavings: $initialSavings
+        monthlySavings: $monthlySavings
+        yearlyInterest: $yearlyInterest
+        interestRecurrency: $interestRecurrency
+        months: $months
       ) {
         month
         amount
