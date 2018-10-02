@@ -11,9 +11,7 @@ export class FinancialDisplay extends React.PureComponent {
         <div className="months">
           {this.props.calculations.map(month => (
             <div key={month.month} className="month">
-              <span>{month.month}</span>
-              <span>:</span>
-              <span>{month.amount}</span>
+              <span>{`Month ${month.month}: ${month.amount.toFixed(2)}`}</span>
             </div>
           ))}
         </div>

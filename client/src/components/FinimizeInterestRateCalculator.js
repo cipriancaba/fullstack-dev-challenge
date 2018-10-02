@@ -4,6 +4,7 @@ import { Header } from './Header'
 import { FinancialDisplay } from './FinancialDisplay'
 import { debounce } from '../utils/debounce'
 import { calculateSavings } from '../api/calculateSavings'
+import { DEBOUNCE_INTERVAL } from '../constants'
 
 export class FinimizeInterestRateCalculator extends React.Component {
   state = {
@@ -19,7 +20,7 @@ export class FinimizeInterestRateCalculator extends React.Component {
             calculateSavings(variables).then(result => {
               this.setState({ calculations: result.calculations })
             })
-          }, 1000)}
+          }, DEBOUNCE_INTERVAL)}
         />
         <FinancialDisplay calculations={this.state.calculations} />
       </div>

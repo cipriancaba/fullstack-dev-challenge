@@ -3,19 +3,28 @@ import PropTypes from 'prop-types'
 import { CurrencyInput } from './CurrencyInput'
 import { SliderInput } from './SliderInput'
 import { SelectInput } from './SelectInput'
+import {
+  TOTAL_MONTHS,
+  DEFAULT_INITIAL_SAVINGS,
+  DEFAULT_MONTHLY_SAVINGS,
+  DEFAULT_YEARLY_INTEREST,
+  DEFAULT_RECCURENCY,
+  RECURRENCY_VALUES,
+} from '../constants'
 
 export class FinancialInput extends React.PureComponent {
   state = {
-    initialSavings: 0,
-    monthlySavings: 0,
-    yearlyInterest: 4,
-    interestMonthlyRecurrency: 'Monthly',
+    initialSavings: DEFAULT_INITIAL_SAVINGS,
+    monthlySavings: DEFAULT_MONTHLY_SAVINGS,
+    yearlyInterest: DEFAULT_YEARLY_INTEREST,
+    interestRecurrency: DEFAULT_RECCURENCY,
+    months: TOTAL_MONTHS,
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (prevState !== this.state) {
+  updateVariables = variables => {
+    this.setState(variables, () => {
       this.props.onVariablesUpdated(this.state)
-    }
+    })
   }
 
   componentDidMount = () => {
@@ -28,27 +37,27 @@ export class FinancialInput extends React.PureComponent {
         <p className="input-label">How much have you saved?</p>
         <CurrencyInput
           value={this.state.initialSavings}
-          onChange={initialSavings => this.setState({ initialSavings })}
+          onChange={initialSavings => this.updateVariables({ initialSavings })}
         />
 
         <p className="input-label">How much will you save each month?</p>
         <CurrencyInput
           value={this.state.monthlySavings}
-          onChange={monthlySavings => this.setState({ monthlySavings })}
+          onChange={monthlySavings => this.updateVariables({ monthlySavings })}
         />
 
         <p className="input-label">How much interest will you earn per year?</p>
         <SliderInput
           value={this.state.yearlyInterest}
-          onChange={yearlyInterest => this.setState({ yearlyInterest })}
+          onChange={yearlyInterest => this.updateVariables({ yearlyInterest })}
         />
 
         <p className="input-label">How often is the interest rate paid?</p>
         <SelectInput
-          value={this.state.interestMonthlyRecurrency}
-          values={['Monthly', 'Quarterly', 'Yearly']}
-          onChange={interestMonthlyRecurrency =>
-            this.setState({ interestMonthlyRecurrency })
+          value={this.state.interestRecurrency}
+          values={RECURRENCY_VALUES}
+          onChange={interestRecurrency =>
+            this.updateVariables({ interestRecurrency })
           }
         />
       </div>
